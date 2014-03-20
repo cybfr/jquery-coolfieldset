@@ -9,6 +9,7 @@
  * "animation" and "speed" options are added by Mitch Kuppinger <dpneumo@gmail.com>
 *
 * Fixed by Jason on Wed, 03/13/2013 - 08:35 PM
+* Fixed by SiZiOUS (@sizious) on Fri, 17/01/2014 - 10:18 AM
  */
 
 (function($) {
@@ -52,6 +53,8 @@
 			if(setting.collapsed==true){
 				
 				hideFieldsetContent(fieldset, {animation:false});
+			} else {
+				fieldset.addClass("expanded");
 			}
 
 			legend.bind("click", function () { doToggle(fieldset, setting) });
