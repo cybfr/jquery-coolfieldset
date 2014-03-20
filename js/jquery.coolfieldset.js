@@ -7,6 +7,8 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
  * "animation" and "speed" options are added by Mitch Kuppinger <dpneumo@gmail.com>
+*
+* Fixed by Jason on Wed, 03/13/2013 - 08:35 PM
  */
 
 (function($) {
@@ -30,6 +32,15 @@
 		obj.addClass("expanded");
 	}
 	
+	function doToggle(fieldset, setting) {
+		if (fieldset.hasClass('collapsed')) {
+			showFieldsetContent(fieldset, setting);
+		}
+		else if (fieldset.hasClass('expanded')) {
+			hideFieldsetContent(fieldset, setting);
+		}
+	}
+
 	$.fn.coolfieldset = function(options){
 		var setting={collapsed:false, animation:true, speed:'medium'};
 		$.extend(setting, options);
@@ -39,27 +50,12 @@
 			var legend=fieldset.children('legend');
 			
 			if(setting.collapsed==true){
-				legend.toggle(
-					function(){
-						showFieldsetContent(fieldset, setting);
-					},
-					function(){
-						hideFieldsetContent(fieldset, setting);
-					}
-				)
 				
 				hideFieldsetContent(fieldset, {animation:false});
 			}
-			else{
-				legend.toggle(
-					function(){
-						hideFieldsetContent(fieldset, setting);
-					},
-					function(){
-						showFieldsetContent(fieldset, setting);
-					}
-				)
-			}
+
+			legend.bind("click", function () { doToggle(fieldset, setting) });
+
 		});
 	}
 })(jQuery);
